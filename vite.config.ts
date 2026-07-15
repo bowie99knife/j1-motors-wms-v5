@@ -1,10 +1,6 @@
-# Netlify tsc fix
+import { defineConfig } from "vite";
+import react from "@vitejs/plugin-react";
 
-The previous deploy failed with `tsc: not found`.
-
-This version:
-- explicitly installs build dependencies
-- sets NPM_CONFIG_PRODUCTION=false
-- keeps TypeScript and Vite available during Netlify builds
-- pins Node 20
-- includes a fresh package-lock.json
+export default defineConfig({
+  plugins: [react()],
+});

@@ -1,17 +1,17 @@
-create or replace function public.handle_new_user()
-returns trigger language plpgsql security definer set search_path=public as $$
-begin
-  insert into public.profiles(id,staff_id,full_name,role,active)
-  values(
-    new.id,
-    upper(coalesce(new.raw_user_meta_data->>'staff_id','UNASSIGNED')),
-    coalesce(new.raw_user_meta_data->>'full_name',new.email),
-    coalesce((new.raw_user_meta_data->>'role')::public.staff_role,'mechanic'),
-    true
-  );
-  return new;
-end$$;
+J1 MOTORS WMS V4 — NETLIFY READY
 
-create trigger on_auth_user_created
-after insert on auth.users
-for each row execute function public.handle_new_user();
+1. Open Netlify.
+2. Open your existing J1 Motors site.
+3. Go to Deploys.
+4. Choose Add new deploy / Deploy manually.
+5. Upload this ZIP file directly.
+
+This package builds without Supabase settings.
+The public website will display in preview mode.
+
+To activate cloud bookings and staff accounts later, add:
+VITE_SUPABASE_URL
+VITE_SUPABASE_ANON_KEY
+
+Netlify path:
+Site configuration > Environment variables
