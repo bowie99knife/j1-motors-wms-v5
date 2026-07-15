@@ -26,9 +26,10 @@ export default function StaffLogin() {
     const email = `${staffId.trim().toLowerCase()}@j1motors.local`;
     const { error } = await supabase.auth.signInWithPassword({ email, password });
     if (error) {
-      setMessage("Invalid Staff ID or password.");
-      return;
-    }
+  console.error("Supabase login error:", error);
+  setMessage(`${error.message} (${error.status ?? "no status"})`);
+  return;
+}
     navigate("/dashboard");
   }
 
