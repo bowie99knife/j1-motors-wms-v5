@@ -1,17 +1,19 @@
 import { createClient } from "@supabase/supabase-js";
 
-const url = import.meta.env.VITE_SUPABASE_URL ?? "";
-const key =
-  import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY ??
-  import.meta.env.VITE_SUPABASE_ANON_KEY ??
-  "";
+const env = (import.meta as ImportMeta & {
+  env?: Record<string, string | undefined>;
+}).env ?? {};
 
-export const configured = Boolean(url && key);
-export const supabaseConfigured = configured;
+export const configured = Boolean(
+  env.VITE_SUPABASE_URL && env.VITE_SUPABASE_ANON_KEY
+);
+
+const fallbackUrl = "https://placeholder.supabase.co";
+const fallbackKey = "placeholder-public-anon-key";
 
 export const supabase = createClient(
-  url || "https://placeholder.supabase.co",
-  key || "placeholder-public-key",
+  env.VITE_SUPABASE_URL || fallbackUrl,
+  env.VITE_SUPABASE_ANON_KEY || fallbackKey,
   {
     auth: {
       persistSession: true,
@@ -20,3 +22,5 @@ export const supabase = createClient(
     },
   },
 );
+
+export const supabaseConfigured = configured;

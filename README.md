@@ -53,5 +53,3 @@ Run this single file in Supabase SQL Editor:
 Then follow:
 
 `SUPABASE-SETUP.md`
-
-Redeploy after Supabase URL fix
